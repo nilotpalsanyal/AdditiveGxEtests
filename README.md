@@ -74,17 +74,16 @@ load the data and look at its contents.
 data(Xdata2, package="CGEN") 
 
 str(Xdata2)
+#'data.frame':    11449 obs. of  8 variables:
+# $ case.control: int  0 0 0 0 0 0 0 1 0 0 ...
+# $ SNP         : int  0 0 0 1 1 0 2 1 1 0 ...
+# $ smoking     : int  1 1 1 1 1 0 0 0 1 1 ...
+# $ cov1        : num  25 25 15 35 5 25 5 15 15 5 ...
+# $ cov2        : int  1 1 1 1 0 0 0 0 1 1 ...
+# $ cov3        : int  4 8 3 4 4 4 8 0 8 4 ...
+# $ cov4        : num  3.22 3.22 2.71 3.56 1.61 ...
+# $ study       : int  4 4 3 5 2 4 2 3 3 2 ...
 ```
-
-    ## 'data.frame':    11449 obs. of  8 variables:
-    ##  $ case.control: int  0 0 0 0 0 0 0 1 0 0 ...
-    ##  $ SNP         : int  0 0 0 1 1 0 2 1 1 0 ...
-    ##  $ smoking     : int  1 1 1 1 1 0 0 0 1 1 ...
-    ##  $ cov1        : num  25 25 15 35 5 25 5 15 15 5 ...
-    ##  $ cov2        : int  1 1 1 1 0 0 0 0 1 1 ...
-    ##  $ cov3        : int  4 8 3 4 4 4 8 0 8 4 ...
-    ##  $ cov4        : num  3.22 3.22 2.71 3.56 1.61 ...
-    ##  $ study       : int  4 4 3 5 2 4 2 3 3 2 ...
 
 So, the data contain, for 11449 subjects, case-control type 0-1
 outcomes, genotype values of a SNP (0,1,2), values of a binary (0-1)
@@ -117,20 +116,34 @@ test_noindep <- additive.test(data = Xdata2, response.var = "case.control",
                 "cov3", "cov4", "study"), strata.var = "study", op = list(genetic.model = 0))
 
 names(test_noindep)
+#[1] "additive"   "model.info"
 
 names(test_noindep$additive)
+#[1] "pval.add.LRT" "pval.add.UML" "LRT.add"      "RERI.UML"    
 
 # p value of the LRT
 test_noindep$additive$pval.add.LRT
+#[1] 0.03197455
 
 # test statistic of the LRT
 test_noindep$additive$LRT.add
+#[1] 4.599861
 
 # p value of the Wald (UML) test
 test_noindep$additive$pval.add.UML
+#[1] 0.03924117
 
 # RERI, standard error and gradient estimates (UML)
 test_noindep$additive$RERI.UML
+#$value
+#[1] -0.1530518
+#
+#$variance
+#[1] 0.005511217
+#
+#$gradient
+#     x11.UML     x2_1.UML x11:x2_1.UML 
+#   0.5597640   -0.2059929    1.5068229
 ```
 
 ## 2. Under G-E independence assumption (Retrospective likelihood) (`indep=TRUE`)
@@ -151,32 +164,67 @@ test_indep <- additive.test(data = Xdata2, response.var = "case.control",
               indep = TRUE))
 
 names(test_indep)
+#[1] "additive"   "model.info"
 
 names(test_indep$additive)
+#[1] "pval.add.LRT" "pval.add.UML" "pval.add.CML" "pval.add.EB"  "LRT.add"      "RERI.UML"    
+#[7] "RERI.CML"     "RERI.EB"     
 
 # p value of the LRT
 test_indep$additive$pval.add.LRT
+#[1] 0.4595864
 
 # test statistic of the LRT
 test_indep$additive$LRT.add
+#[1] 0.5469018
 
 # p value of the Wald UML test
 test_indep$additive$pval.add.UML
+#[1] 0.03924117
 
 # p value of the Wald CML test
 test_indep$additive$pval.add.CML
+#[1] 0.4661798
 
 # p value of the Wald EB test
 test_indep$additive$pval.add.EB
+#[1] 0.131338
 
 # RERI, standard error and gradient estimates for UML
 test_indep$additive$RERI.UML
-
+#$value
+#[1] -0.1530518
+#
+#$variance
+#[1] 0.005511217
+#
+#$gradient
+#     x11.UML     x2_1.UML x11:x2_1.UML 
+#   0.5597640   -0.2059929    1.5068229 
+   
 # RERI, standard error and gradient estimates for CML
 test_indep$additive$RERI.CML
-
+#$value
+#[1] -0.036034
+#
+#$variance
+#[1] 0.002445213
+#
+#$gradient
+#     x11.CML     x2_1.CML x11:x2_1.CML 
+#    0.557127    -0.119424     1.473737
+    
 # RERI, standard error and gradient estimates for EB
 test_indep$additive$RERI.EB
+#$value
+#[1] -0.1194704
+#
+#$gradient
+#     x11.UML     x2_1.UML x11:x2_1.UML      x11.CML     x2_1.CML x11:x2_1.CML 
+#  0.62820373  -0.23117872   1.69105517  -0.06811736   0.01460142  -0.18018706 
+#
+#$variance
+#[1] 0.006269466
 ```
 
 # References
