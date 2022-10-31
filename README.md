@@ -31,19 +31,21 @@ variables.
 Specifically, under the trend effect of genotypes, we illustrate the
 following tests:
 
--   Likelihood ratio tests (LRTs) with/without assuming gene-environment
-    independence ([Rochemonteix et al. (2020)](#ref1)).
+-   Likelihood ratio tests (LRTs) without/with gene-environment
+    independence assumption ([Rochemonteix et al. (2020)](#ref1)).
 
--   Wald tests without/with (UML/CML) assuming gene-environment
-    independence, and a robust Wald test (EB) based on an empirical
+-   Wald tests without/with (UML/CML) gene-environment
+    independence assumption, and a robust Wald test (EB) based on an empirical
     Bayes-type shrinkage estimator that combines estimates from the
-    former Wald tests ([Sanyal et al. (2021)](#ref2)).
+    former Wald tests (UML and CML) ([Sanyal et al. (2021)](#ref2)).
 
 The tests that use the gene-environment independence assumption are
-based on the ‘retrospective likelihood’ function. When that assumption
-is not made, the use of the retrospective likelihood function is
-equivalent to the use of traditionally used ‘propsective likelihood’
-function.
+based on the ‘retrospective likelihood’ function and constrained maximum 
+likelihood (CML) estimates where the constraint is imposed by the independence 
+assumption. When that assumption is not made, the use of the retrospective 
+likelihood function along with the corresponding unconstrained maximum 
+likelihood estimates (UML) is equivalent to the use of traditionally used 
+‘propsective likelihood’ function and the estimates obtained therefrom.
 
 We start by loading the package.
 
@@ -103,31 +105,32 @@ prospective likelihood-based analysis—which we illustrate first.
 ## 1. Without G-E independence assumption (Prospective likelihood) (`indep=FALSE`)
 
 The following code performs tests for additive SNP x smoking interaction
-under the trend effect of genotypes. In the output, we get
+under the trend effect of genotypes without any independence assumption. 
+In the output, we get
 
 -   LRT p value and test statistic under prospective likelihood.
 -   Wald test p value and RERI estimates under prospective likelihood.
 
 ``` r
-test_general <- additive.test(data = Xdata2, response.var = "case.control",
+test_noindep <- additive.test(data = Xdata2, response.var = "case.control",
                 snp.var = "SNP", exposure.var = "smoking", main.vars = c("cov1", "cov2",
                 "cov3", "cov4", "study"), strata.var = "study", op = list(genetic.model = 0))
 
-names(test_general)
+names(test_noindep)
 
-names(test_general$additive)
+names(test_noindep$additive)
 
 # p value of the LRT
-test_general$additive$pval.add.LRT
+test_noindep$additive$pval.add.LRT
 
 # test statistic of the LRT
-test_general$additive$LRT.add
+test_noindep$additive$LRT.add
 
 # p value of the Wald (UML) test
-test_general$additive$pval.add.UML
+test_noindep$additive$pval.add.UML
 
 # RERI, standard error and gradient estimates (UML)
-test_general$additive$RERI.UML
+test_noindep$additive$RERI.UML
 ```
 
 ## 2. Under G-E independence assumption (Retrospective likelihood) (`indep=TRUE`)
