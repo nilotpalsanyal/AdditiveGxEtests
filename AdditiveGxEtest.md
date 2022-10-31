@@ -1,3 +1,5 @@
+# Additive Gene by Environment (GxE) Interaction Tests Under the Trend Effect of genotypes <br> <sub>Nilotpal Sanyal, Matthieu Rochemonteix, Summer Han</sub>
+
 -   <a href="#introduction" id="toc-introduction">Introduction</a>
 -   <a href="#installation-of-cgen"
     id="toc-installation-of-cgen">Installation of CGEN</a>
@@ -17,26 +19,7 @@
         (<code>indep=TRUE</code>)</a>
 -   <a href="#references" id="toc-references">References</a>
 
-<style>
-  body, td              /*for body*/
-  {
-    font-size: 17px;
-    /*font-family: Calibri;*/
-    /*background: rgb(250,250,250);*/
-  }
-  code.r               /*for r codes*/
-  {                     
-    font-size: 16.5px;
-  }
-  pre                  /*for output of knitr chunks*/
-  {                     
-    font-size: 16.5px
-    border: 0;
-  }
-</style>
-<hr>
-
-## Introduction
+# Introduction
 
 This page serves as a tutorial for the additive gene by environment
 (GxE) interaction tests under the trend effect of genotypes that have
@@ -64,7 +47,7 @@ function.
 
 We start by loading the package.
 
-## Installation of CGEN
+# Installation of CGEN
 
 The R package `CGEN` can be installed from its Bioconductor repository
 using:
@@ -78,7 +61,7 @@ BiocManager::install("CGEN")
 library(CGEN)
 ```
 
-## Import Data
+# Import Data
 
 For the illustration of the tests, we use the `Xdata2` dataset which
 comes inside the `CGEN` package. This dataset contains sample covariate
@@ -107,7 +90,7 @@ environmental variable smoking, values of four covariates and a study
 variable indicating which study subjects are taken from. We test for
 additive SNP x smoking interaction in this data.
 
-## Additive GxE tests under the trend of effect of genotypes
+# Additive GxE tests under the trend of effect of genotypes
 
 We use the `additive.test` function to conduct additive GxE interaction
 tests under the assumption of an additive genetic model, i.e., the
@@ -117,7 +100,7 @@ gene-environment independence assumption is specified by setting
 `indep=TRUE`. By default, `indep=FALSE` which corresponds to the
 prospective likelihood-based analysis—which we illustrate first.
 
-### 1. Without G-E independence assumption (Prospective likelihood) (`indep=FALSE`)
+## 1. Without G-E independence assumption (Prospective likelihood) (`indep=FALSE`)
 
 The following code performs tests for additive SNP x smoking interaction
 under the trend effect of genotypes. In the output, we get
@@ -127,27 +110,27 @@ under the trend effect of genotypes. In the output, we get
 
 ``` r
 test_general <- additive.test(data = Xdata2, response.var = "case.control",
- snp.var = "SNP", exposure.var = "smoking", main.vars = c("cov1", "cov2",
- "cov3", "cov4", "study"), strata.var = "study", op = list(genetic.model = 0))
+                snp.var = "SNP", exposure.var = "smoking", main.vars = c("cov1", "cov2",
+                "cov3", "cov4", "study"), strata.var = "study", op = list(genetic.model = 0))
 
 names(test_general)
 
 names(test_general$additive)
 
-#p value of the LRT
+# p value of the LRT
 test_general$additive$pval.add.LRT
 
-#test statistic of the LRT
+# test statistic of the LRT
 test_general$additive$LRT.add
 
-#p value of the Wald (UML) test
+# p value of the Wald (UML) test
 test_general$additive$pval.add.UML
 
-#RERI, standard error and gradient estimates (UML)
+# RERI, standard error and gradient estimates (UML)
 test_general$additive$RERI.UML
 ```
 
-### 2. Under G-E independence assumption (Retrospective likelihood) (`indep=TRUE`)
+## 2. Under G-E independence assumption (Retrospective likelihood) (`indep=TRUE`)
 
 Under the assumption that SNP and smoking are independent (specified by
 `indep=TRUE`), the following code performs tests for additive SNP x
@@ -160,40 +143,40 @@ output, we get
 
 ``` r
 test_indep <- additive.test(data = Xdata2, response.var = "case.control",
- snp.var = "SNP", exposure.var = "smoking", main.vars = c("cov1", "cov2",
- "cov3", "cov4", "study"), strata.var = "study", op = list(genetic.model = 0,
-    indep = TRUE))
+              snp.var = "SNP", exposure.var = "smoking", main.vars = c("cov1", "cov2",
+              "cov3", "cov4", "study"), strata.var = "study", op = list(genetic.model = 0,
+              indep = TRUE))
 
 names(test_indep)
 
 names(test_indep$additive)
 
-#p value of the LRT
+# p value of the LRT
 test_indep$additive$pval.add.LRT
 
-#test statistic of the LRT
+# test statistic of the LRT
 test_indep$additive$LRT.add
 
-#p value of the Wald UML test
+# p value of the Wald UML test
 test_indep$additive$pval.add.UML
 
-#p value of the Wald CML test
+# p value of the Wald CML test
 test_indep$additive$pval.add.CML
 
-#p value of the Wald EB test
+# p value of the Wald EB test
 test_indep$additive$pval.add.EB
 
-#RERI, standard error and gradient estimates for UML
+# RERI, standard error and gradient estimates for UML
 test_indep$additive$RERI.UML
 
-#RERI, standard error and gradient estimates for CML
+# RERI, standard error and gradient estimates for CML
 test_indep$additive$RERI.CML
 
-#RERI, standard error and gradient estimates for EB
+# RERI, standard error and gradient estimates for EB
 test_indep$additive$RERI.EB
 ```
 
-## References
+# References
 
 Rochemonteix, Matthieu de, Valerio Napolioni, Nilotpal Sanyal, Michaël E
 Belloy, Neil E Caporaso, Maria T Landi, Michael D Greicius, Nilanjan
