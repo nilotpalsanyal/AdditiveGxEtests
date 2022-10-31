@@ -23,7 +23,7 @@
 
 This page serves as a tutorial for the additive gene by environment
 (GxE) interaction tests under the trend effect of genotypes that have
-been proposed by Rochemonteix et al. (2020) and Sanyal et al. (2021) and
+been proposed by [Rochemonteix et al. (2020)](#ref1) and [Sanyal et al. (2021)](#ref2) and
 implemented in the `additive.test` function of the R package `CGEN`.
 Currently, these tests are available only for binary environmental
 variables.
@@ -32,12 +32,12 @@ Specifically, under the trend effect of genotypes, we illustrate the
 following tests:
 
 -   Likelihood ratio tests (LRTs) with/without assuming gene-environment
-    independence (Rochemonteix et al. 2020).
+    independence ([Rochemonteix et al. (2020)](#ref1)).
 
 -   Wald tests without/with (UML/CML) assuming gene-environment
     independence, and a robust Wald test (EB) based on an empirical
     Bayes-type shrinkage estimator that combines estimates from the
-    former Wald tests (Sanyal et al. 2021).
+    former Wald tests ([Sanyal et al. (2021)](#ref2)).
 
 The tests that use the gene-environment independence assumption are
 based on the ‘retrospective likelihood’ function. When that assumption
@@ -178,18 +178,8 @@ test_indep$additive$RERI.EB
 
 # References
 
-Rochemonteix, Matthieu de, Valerio Napolioni, Nilotpal Sanyal, Michaël E
-Belloy, Neil E Caporaso, Maria T Landi, Michael D Greicius, Nilanjan
-Chatterjee, and Summer S Han. 2020. “<span class="nocase">A Likelihood
-Ratio Test for Gene-Environment Interaction Based on the Trend Effect of
-Genotype Under an Additive Risk Model Using the Gene-Environment
-Independence Assumption</span>.” *American Journal of Epidemiology* 190
-(1): 129–41. <https://doi.org/10.1093/aje/kwaa132>.
+<div id="ref1">
+De Rochemonteix, M., Napolioni, V., Sanyal, N., Belloy, M.E., Caporaso, N.E., Landi, M.T., Greicius, M.D., Chatterjee, N. and Han, S.S., 2021. A likelihood ratio test for gene-environment interaction based on the trend effect of genotype under an additive risk model using the gene-environment independence assumption. American journal of epidemiology, 190(1), pp.129-141. https://doi.org/10.1093/aje/kwaa132. <br><br>
 
-Sanyal, Nilotpal, Valerio Napolioni, Matthieu de Rochemonteix, Michaël E
-Belloy, Neil E Caporaso, Maria Teresa Landi, Michael D Greicius,
-Nilanjan Chatterjee, and Summer S Han. 2021. “<span class="nocase">A
-Robust Test for Additive Gene-Environment Interaction Under the Trend
-Effect of Genotype Using an Empirical Bayes-Type Shrinkage
-Estimator</span>.” *American Journal of Epidemiology* 190 (9): 1948–60.
-<https://doi.org/10.1093/aje/kwab124>.
+<div id="ref2">
+Sanyal, N., Napolioni, V., de Rochemonteix, M., Belloy, M.E., Caporaso, N.E., Landi, M.T., Greicius, M.D., Chatterjee, N. and Han, S.S., 2021. A Robust Test for Additive Gene-Environment Interaction Under the Trend Effect of Genotype Using an Empirical Bayes-Type Shrinkage Estimator. American journal of epidemiology, 190(9), pp.1948-1960. https://doi.org/10.1093/aje/kwab124.
